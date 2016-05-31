@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="adalwin.com.activities.ArticleActivity">
+
+    <item
+        android:id="@+id/menu_item_share"
+        app:showAsAction="always"
+        android:title="Share"
+        android:icon="@mipmap/ic_share_black_24dp"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
+
+
+</menu>

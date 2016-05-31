@@ -36,17 +36,17 @@ public class Article {
             JSONObject imageJsonObject=multimedia.getJSONObject(0);
             this.newsThumbImage = "http://www.nytimes.com/"+imageJsonObject.getString("url");
         }else{
-            this.newsThumbImage = "";
+            this.newsThumbImage ="";
         }
 
     }
 
     public static ArrayList<Article> fromJsonArray(JSONArray jsonArray){
-
         ArrayList<Article> articlesArray=new ArrayList<Article>();
         for (int i=0;i<jsonArray.length();i++){
             try {
                 articlesArray.add(new Article(jsonArray.getJSONObject(i)));
+
             }
             catch(JSONException jse){
                 jse.printStackTrace();

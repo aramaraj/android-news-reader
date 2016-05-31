@@ -11,34 +11,15 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="adalwin.com.activities.SearchActivity"
     tools:showIn="@layout/activity_search">
-
-
-    <EditText
+        <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etSearch"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/btSearch"
-        android:layout_toStartOf="@+id/btSearch"
-        android:hint="@string/hintSearch" />
+        android:id="@+id/lvView"
+        />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnText"
-        android:id="@+id/btSearch"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <!--<android.support.v7.widget.RecyclerView
+        android:id="@+id/rvResultsWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gvResults"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btSearch"
-        android:numColumns="4" />
 </RelativeLayout>

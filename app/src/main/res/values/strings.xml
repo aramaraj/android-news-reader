@@ -3,4 +3,21 @@
     <string name="action_settings">Settings</string>
     <string name="hintSearch">Enter a Search Query</string>
     <string name="btnText">Search</string>
+    <string name="tvName">Begin Date</string>
+    <string name="tvSortName">Sort Order</string>
+    <string name="etSortString">Oldest</string>
+    <string name="tvNewsString">News Desk Values</string>
+    <string name="Arts" />
+    <string name="btnSaveString">Save</string>
+    <string name="spinner_prompt">Choose Sort Order</string>
+
+    <string-array name="spinner_array">
+        <item>OLDEST</item>
+        <item>NEWEST</item>
+
+    </string-array>
+
+
+
 </resources>
+
