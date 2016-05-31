@@ -66,6 +66,9 @@ public class SearchActivity extends AppCompatActivity {
         articleArrayAdapter = new ArticleArrayAdapter(this,articles);
         lvView.setAdapter(articleArrayAdapter);
 
+        reqParams.put("q", "hollywood");
+        retrievePage(0);
+
         lvView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -91,6 +94,7 @@ public class SearchActivity extends AppCompatActivity {
                 return 0;
             }
         });
+
     }
 
     @Override
@@ -118,7 +122,6 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -142,15 +145,17 @@ public class SearchActivity extends AppCompatActivity {
         if (requestCode == SETTING_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 settings = (Settings)data.getSerializableExtra("settings");
+                Log.d("SearchActivity", settings.toString());
                 settings.newsDesk=setNewsOptionsParams(settings.getNewsOptions());
                 advancedSearch(0);
-                Log.d("SearchActivity", settings.toString());
+
 
             }
         }
     }
 
     private String setNewsOptionsParams(List<String> newsOptionsList) {
+        Log.d("SearchActivity", newsOptionsList.toString());
         StringBuilder sb = new StringBuilder("news_desk:(");
         String newsDesk="";
         if (!newsOptionsList.isEmpty()) {
@@ -160,6 +165,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             sb.append(" )");
             newsDesk= sb.toString();
+            Log.d("SearchActivity", newsDesk);
         }
         return newsDesk;
     }
@@ -173,7 +179,7 @@ public class SearchActivity extends AppCompatActivity {
     public void retrievePage(int page) {
 
         reqParams.put("api-key", API_KEY);
-        //reqParams.put("page", page);
+        reqParams.put("page", 0);
         client=new NewsExternalClient();
 
         client.getNewsResults(reqParams,new JsonHttpResponseHandler(){
@@ -184,7 +190,7 @@ public class SearchActivity extends AppCompatActivity {
                 JSONArray searchResults = null;
                 try {
                     searchResults=response.getJSONObject("response").getJSONArray("docs");
-                    //articleArrayAdapter.clear();
+                    articleArrayAdapter.clear();
                     articleArrayAdapter.addAll(Article.fromJsonArray(searchResults));
                     articleArrayAdapter.notifyDataSetChanged();
                     Log.d("DEBUG", articles.toString());
@@ -225,7 +231,7 @@ public class SearchActivity extends AppCompatActivity {
                 JSONArray searchResults = null;
                 try {
                     searchResults=response.getJSONObject("response").getJSONArray("docs");
-                    //articleArrayAdapter.clear();
+                    articleArrayAdapter.clear();
                     articleArrayAdapter.addAll(Article.fromJsonArray(searchResults));
                     articleArrayAdapter.notifyDataSetChanged();
                     Log.d("DEBUG", articles.toString());

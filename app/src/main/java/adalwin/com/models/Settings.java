@@ -50,6 +50,6 @@ public class Settings implements Serializable{
 
     }
     public String toString(){
-        return "Date "+ startDate.toString()+ "  sort :" +sortOrder +"newsOptions"+newsOptions;
+        return "Date "+ startDate+ "  sort :" +sortOrder +"newsOptions"+newsOptions;
     }
 }

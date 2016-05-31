@@ -46,12 +46,20 @@ public class ArticleArrayAdapter  extends ArrayAdapter<Article> {
         }
         TextView tvHeadline = (TextView) convertView.findViewById(R.id.tvHeadlines);
         ImageView ivThumbImage = (ImageView) convertView.findViewById(R.id.ivThumbs);
+
         tvHeadline.setText(article.getNewsHeadline());
+
         ivThumbImage.setImageResource(0);
         String thumbnail = article.getNewsThumbImage();
 
-            Picasso.with(getContext()).load(article.getNewsThumbImage()).placeholder(getContext().getResources().getDrawable(R.mipmap.ic_launcher)).transform(new RoundedCornersTransformation(10, 10)).into(ivThumbImage);
+        if(!thumbnail.isEmpty()){
+            Picasso.with(getContext()).load(article.getNewsThumbImage()).
+                    transform(new RoundedCornersTransformation(10, 10)).into(ivThumbImage);
 
+        }else{
+            Picasso.with(getContext()).load(R.mipmap.ic_launcher_news).
+                    transform(new RoundedCornersTransformation(10, 10)).into(ivThumbImage);
+        }
         return convertView;
 
     }
