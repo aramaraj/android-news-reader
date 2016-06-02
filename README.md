@@ -31,6 +31,11 @@ Here's a walkthrough of implemented user stories:
 
 Describe any challenges encountered while building the app.
 
+1. Butterknife was not binding the values.
+2. Grid view layout was always gving sack overflow error on getting results.
+
+
+
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
