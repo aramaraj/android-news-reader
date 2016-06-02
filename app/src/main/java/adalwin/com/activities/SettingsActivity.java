@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -95,7 +96,9 @@ public class SettingsActivity extends AppCompatActivity  implements DatePickerDi
         public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        selectedOptions=new ArrayList<String>(3);
+            Log.d("Settings ---> Activity", String.valueOf(checked));
+
+            selectedOptions=new ArrayList<String>(3);
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.cbArts:
@@ -116,6 +119,7 @@ public class SettingsActivity extends AppCompatActivity  implements DatePickerDi
                 else
                 // I'm lactose intolerant
                 break;
+             default:
         }
     }
     // handle the date selected
@@ -133,13 +137,16 @@ public class SettingsActivity extends AppCompatActivity  implements DatePickerDi
 
     public void onSave(View view) {
         Intent intent = new Intent();
-        settings.newsOptions = selectedOptions;
+        if(selectedOptions.isEmpty()){
+            selectedOptions.add("Arts");
+        }else {
+            settings.newsOptions = selectedOptions;
+        }
         settings.startDate = beginDate;
         settings.sortOrder = sortMap.get(((Spinner)findViewById(R.id.spinnerSort)).getSelectedItemId());
         intent.putExtra("settings",settings);
         setResult(RESULT_OK, intent);
         this.finish();
-
     }
 
 

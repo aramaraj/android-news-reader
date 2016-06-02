@@ -11,11 +11,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="adalwin.com.activities.SearchActivity"
     tools:showIn="@layout/activity_search">
-        <ListView
+
+    <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lvView"
-        />
+        android:id="@+id/gvResults"
+        android:layout_centerHorizontal="true"
+        android:numColumns="4" />
+
 
     <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/rvResultsWidget"

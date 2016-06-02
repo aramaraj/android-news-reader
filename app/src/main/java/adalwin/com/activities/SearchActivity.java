@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -48,15 +49,17 @@ public class SearchActivity extends AppCompatActivity {
     ListView lvView;
     RequestParams reqParams = new RequestParams();
     String search;
-
+    GridView gvResults;
 
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        lvView = (ListView)findViewById(R.id.lvView);
+        //lvView = (ListView)findViewById(R.id.lvView);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
+        gvResults = (GridView)findViewById(R.id.gvResults);
+
         setSupportActionBar(toolbar);
         ActionBar menu = getSupportActionBar();
         menu.setLogo(R.mipmap.ic_launcher_news);
@@ -64,12 +67,12 @@ public class SearchActivity extends AppCompatActivity {
         settings = new Settings();
         articles = new ArrayList<Article>();
         articleArrayAdapter = new ArticleArrayAdapter(this,articles);
-        lvView.setAdapter(articleArrayAdapter);
+        gvResults.setAdapter(articleArrayAdapter);
 
-        reqParams.put("q", "hollywood");
-        retrievePage(0);
+        /*reqParams.put("q", "hollywood");
+        retrievePage(0);*/
 
-        lvView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getApplicationContext(),ArticleActivity.class);
@@ -78,12 +81,21 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+       /* lvView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getApplicationContext(),ArticleActivity.class);
+                Article article = articles.get(position);
+                intent.putExtra("url",article.getNewsUrl());
+                startActivity(intent);
+            }
+        });
+*/
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
 
-        lvView.setOnScrollListener(new EndlessRecylcerScrollerListener(){
+        gvResults.setOnScrollListener(new EndlessRecylcerScrollerListener(){
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
                 advancedSearch(page);
@@ -145,10 +157,7 @@ public class SearchActivity extends AppCompatActivity {
         if (requestCode == SETTING_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 settings = (Settings)data.getSerializableExtra("settings");
-                Log.d("SearchActivity", settings.toString());
-                settings.newsDesk=setNewsOptionsParams(settings.getNewsOptions());
-                advancedSearch(0);
-
+                Log.d("DEBUG --> ONACTIVITY", settings.toString());
 
             }
         }
@@ -231,7 +240,6 @@ public class SearchActivity extends AppCompatActivity {
                 JSONArray searchResults = null;
                 try {
                     searchResults=response.getJSONObject("response").getJSONArray("docs");
-                    articleArrayAdapter.clear();
                     articleArrayAdapter.addAll(Article.fromJsonArray(searchResults));
                     articleArrayAdapter.notifyDataSetChanged();
                     Log.d("DEBUG", articles.toString());
